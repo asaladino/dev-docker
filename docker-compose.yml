@@ -1,0 +1,44 @@
+version: "3"
+
+services:
+    apache:
+        container_name: ${PROJECT}-web-container
+        image: web-container:latest
+        build:
+            context: ./docker/apache
+        ports:
+            - "${BROWSER_PORT}:80"
+        volumes:
+            - ./${WEB_APP}:/var/www/html
+        env_file:
+            # Grunt will generate this file based on your ip.
+            - ./docker/apache/ip/ip.env
+        environment:
+            APP_DOC_ROOT: ${APP_DOC_ROOT}
+            SITE_TITLE: ${SITE_TITLE}
+            SITE_DOMAIN: ${SITE_DOMAIN}
+            DRUPAL_VERSION: ${DRUPAL_VERSION}
+            WP_VERSION: ${WP_VERSION}
+            ADMIN_USERNAME: ${ADMIN_USERNAME}
+            ADMIN_PASSWORD: ${ADMIN_PASSWORD}
+            ADMIN_EMAIL: ${ADMIN_EMAIL}
+            WP_TYPE: ${WP_TYPE}
+            DB_HOST: ${DB_HOST}
+            DB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+            DB_DATABASE: ${DB_DATABASE}
+            XDEBUG_IDEKEY: ${XDEBUG_IDEKEY}
+            BROWSER_PORT: ${BROWSER_PORT}
+        links:
+            - db
+    db:
+        container_name: ${PROJECT}-db-container
+        image: mariadb:latest
+        environment:
+            MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+            MYSQL_DATABASE: ${DB_DATABASE}
+        expose:
+            - "3306"
+        ports:
+            - "${SQL_CLIENT_PORT}:3306"
+        volumes:
+            - ./database:/var/lib/mysql

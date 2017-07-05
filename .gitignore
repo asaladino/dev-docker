@@ -1,0 +1,9 @@
+# Created by .ignore support plugin (hsz.mobi)
+database/
+src/
+www/
+.idea/
+node_modules/
+# generated file
+docker/apache/ip/ip.env
+/.env
