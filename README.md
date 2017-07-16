@@ -50,6 +50,8 @@ docker exec -it {container-id/name} {command} # exec a command in the docker con
 
 ## Structure
 - `${WEB_APP_DIR}` is the directory for project files. Any changes update automatically and can be set in the `.env` file.
+- `${TMP_DIR}` is used to map to the web containers /var/tmp folder.
+- `${LOG_DIR}` is used to map to the web containers /var/log folder.
 - `database` is where MariaDB will store the database files.
 
 ## Debugging Tutorial  
