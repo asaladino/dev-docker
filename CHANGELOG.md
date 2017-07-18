@@ -10,12 +10,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Change log.
 - Add PHPUnit to docker web container.
 - Add new folder maps to /var/tmp and /var/log
+- Added Terminus for better pantheon integration.
+- Added drupal console for drupal 8 fun.
 
 ### Changed
 - Mysql cli is now run in the docker web container and not needed on the docker host.
 - Update README.md documentation.
 - Directory variables are now suffixed with _DIR.
 - The mysql cli in the web container is used for db imports.
+- Latest version of xdebug is installed and not 2.5.0
 
 ### Removed
 - Nothing.

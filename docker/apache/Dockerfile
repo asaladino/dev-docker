@@ -12,7 +12,7 @@ RUN apt-get update && apt-get install -y \
         less \
         drush \
         git-core \
-    && pecl install xdebug-2.5.0 \
+    && pecl install xdebug \
     && docker-php-ext-enable xdebug \
     && docker-php-ext-install -j$(nproc) iconv mcrypt \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
@@ -35,10 +35,18 @@ RUN curl -Lo /tmp/composer-setup.php https://getcomposer.org/installer \
 RUN curl -Lo /bin/phpunit https://phar.phpunit.de/phpunit.phar
 RUN chmod +x /bin/phpunit
 
+# Add drupal console
+RUN curl -Lo /bin/drupal https://drupalconsole.com/installer
+RUN chmod +x /bin/drupal
+
+# Add Terminus
+RUN curl -Lo installer.phar https://raw.githubusercontent.com/pantheon-systems/terminus-installer/master/builds/installer.phar \
+    && php installer.phar install \
+    && rm installer.phar
+
 # Add WP-CLI
 RUN curl -Lo /bin/wp https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 RUN chmod +x /bin/wp
-RUN /bin/wp --allow-root
 
 # Cleanup
 RUN apt-get clean
