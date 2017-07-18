@@ -23,7 +23,7 @@ Install node support (ie: grunt)
 npm install
 ```
 ### Before you bring up the containers
-Copy `./docker/sample/.env` to the parent directory (i.e. where .gitignore is located) and change the values to your
+Copy `./docker/sample/.env` to the parent directory (i.e. where README.md is located) and change the values to your
 liking.
 
 #### Convenience Commands
@@ -49,16 +49,19 @@ docker exec -it {container-id/name} {command} # exec a command in the docker con
 ```
 
 ## Structure
-- `src` is the directory for project files. Any changes update automatically.
+- `${WEB_APP_DIR}` is the directory for project files. Any changes update automatically and can be set in the `.env` file.
+- `${TMP_DIR}` is used to map to the web containers /var/tmp folder.
+- `${LOG_DIR}` is used to map to the web containers /var/log folder.
 - `database` is where MariaDB will store the database files.
 
 ## Debugging Tutorial  
-**[Read Here](https://shippingdocker.com/xdebug/get-working/)**
+**[Helpful docker and xdebug tutorial](https://shippingdocker.com/xdebug/get-working/)**
+
 **[Chrome Extension](https://chrome.google.com/webstore/detail/xdebug-helper/eadndfjplgieldjbigjakmdgkmoaaaoc)**
 
 ## Pantheon Integration
 
-To bring in your pantheon project, first setup the following environment variables.
+To bring in your Pantheon project, first setup the following environment variables.
 ```ini
 PANTHEON_ENV=dev
 PANTHEON_SITE=d28468d1-56e5-4824-afa9-....
@@ -68,7 +71,7 @@ PANTHEON_DB=https://pantheon-
 Make sure your containers are up `grunt up`. Initialize your project by checking out your source `grunt pantheon-init`.
 Finally, sync your files and database with `grunt pantheon-sync`.
 
-Note, you are responsible for source commits to pantheon, there is no command for this action.
+Note, you are responsible for source commits to Pantheon, there is no command for this action.
 
 ## Acquia Integration
 
@@ -83,4 +86,4 @@ ACQUIA_GIT_SERVER=svn-2349.devcloud.hosting.acquia.com
 Make sure your containers are up `grunt up`. Initialize your project by checking out your source `grunt acquia-init`.
 Finally, sync your files and database with `grunt acquia-sync`.
 
-Note, you are responsible for source commits to acquia, there is no command for this action.
+Note, you are responsible for source commits to Acquia, there is no command for this action.

@@ -22,12 +22,7 @@ module.exports = function (grunt) {
       },
       pantheon_db: {
         cmd: function () {
-          let url = pantheon.dbUrl();
-          return 'curl "' + url + '" -o database.sql.gz;' +
-              'gunzip database.sql.gz;' +
-              pantheon.createLocalDb() + ';' +
-              pantheon.importToLocalDb() + ';' +
-              'rm database.sql';
+          return 'curl "' + pantheon.dbUrl() + '" -o ' + acquia.dbFileLocation() + ';';
         }
       },
       pantheon_files: {
@@ -127,9 +122,9 @@ module.exports = function (grunt) {
 
   // Pantheon
   grunt.registerTask('pantheon-init', ['exec:pantheon_git', 'exec:pantheon_settings']);
-  grunt.registerTask('pantheon-sync', ['exec:pantheon_db']);
+  grunt.registerTask('pantheon-sync', ['exec:pantheon_db', 'dockerCompose:exec:apache:/scripts/sync-db.sh']);
 
   // Acquia
   grunt.registerTask('acquia-init', ['exec:acquia_git', 'exec:acquia_settings']);
-  grunt.registerTask('acquia-sync', ['exec:acquia_db']);
+  grunt.registerTask('acquia-sync', ['exec:acquia_db', 'dockerCompose:exec:apache:/scripts/sync-db.sh']);
 };
