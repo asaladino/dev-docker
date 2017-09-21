@@ -35,5 +35,9 @@ if ! $(wp core is-installed --allow-root); then
     INSTALL_COMMAND="install"
   fi
 
-  wp core install --allow-root --url="http://${SITE_DOMAIN}" --title="${SITE_TITLE}" --admin_name="${ADMIN_USERNAME}" --admin_email="${ADMIN_EMAIL}" --admin_password="${ADMIN_PASSWORD}"
+  # This command produces the error sh: 1: -t: not found
+  # It is an extraneous error and can be ignored.
+  # https://github.com/xyu/heroku-wp/issues/68
+  echo "of type ${INSTALL_COMMAND} for url http://${SITE_DOMAIN}:${BROWSER_PORT}"
+  wp core ${INSTALL_COMMAND} --allow-root --url="http://${SITE_DOMAIN}:${BROWSER_PORT}" --title="${SITE_TITLE}" --admin_name="${ADMIN_USERNAME}" --admin_email="${ADMIN_EMAIL}" --admin_password="${ADMIN_PASSWORD}"
 fi
