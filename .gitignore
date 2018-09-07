@@ -1,6 +1,6 @@
 # Created by .ignore support plugin (hsz.mobi)
 database/
-www/
+www
 log/
 tmp/
 .idea/
