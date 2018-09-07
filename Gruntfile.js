@@ -10,7 +10,7 @@ module.exports = function (grunt) {
     pkg: grunt.file.readJSON('package.json'),
     exec: {
       /*wp_git_plugins: {
-        cwd: './src/wp-content/plugins/',
+        cwd: './www/wp-content/plugins/',
         cmd: 'git clone git@some-wp-plugin-repo.git;' +
         'git clone git@some-wp-plugin-repo.git;'
       },*/
@@ -29,24 +29,24 @@ module.exports = function (grunt) {
         cmd: function () {
           let url = pantheon.filesUrl();
           if (pantheon.isWordpress()) {
-            return 'rsync -rlvz --size-only --ipv4 --progress -e \'ssh -p 2222\' ' + url + ' src/wp-content/uploads';
+            return 'rsync -rlvz --size-only --ipv4 --progress -e \'ssh -p 2222\' ' + url + ' www/wp-content/uploads';
           }
-          return 'rsync -rlvz --size-only --ipv4 --progress -e \'ssh -p 2222\' ' + url + ' src/sites/default/files';
+          return 'rsync -rlvz --size-only --ipv4 --progress -e \'ssh -p 2222\' ' + url + ' www/sites/default/files';
         }
       },
       pantheon_git: {
         cmd: function () {
           let url = pantheon.repoUrl();
-          return 'git clone ' + url + ' src';
+          return 'git clone ' + url + ' www';
         }
       },
       pantheon_settings: {
         cmd: function () {
           pantheon.copySettings();
           if (pantheon.isWordpress()) {
-            return 'mkdir src/wp-content/uploads;';
+            return 'mkdir www/wp-content/uploads;';
           }
-          return 'mkdir src/sites/default/files;';
+          return 'mkdir www/sites/default/files;';
         }
       },
       acquia_db: {
@@ -62,18 +62,18 @@ module.exports = function (grunt) {
       acquia_files: {
         cmd: function () {
           let url = acquia.filesUrl();
-          return 'rsync -rlvz --size-only --ipv4 --progress -e \'ssh\' ' + url + ' src/docroot/sites/default/files';
+          return 'rsync -rlvz --size-only --ipv4 --progress -e \'ssh\' ' + url + ' www/docroot/sites/default/files';
         }
       },
       acquia_git: {
         cmd: function () {
-          return 'git clone ' + acquia.repoUrl() + ' src';
+          return 'git clone ' + acquia.repoUrl() + ' www';
         }
       },
       acquia_settings: {
         cmd: function () {
           acquia.copySettings();
-          return 'mkdir src/docroot/sites/default/files;';
+          return 'mkdir www/docroot/sites/default/files;';
         }
       }
     }
